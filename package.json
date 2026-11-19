@@ -1,0 +1,17 @@
+{
+  "name": "regalin-amigo-invisible",
+  "version": "1.0.0",
+  "description": "Web para crear salas de amigo invisible con sorteo secreto y participantes en distintos dispositivos",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "db:local": "wrangler d1 migrations apply amigo-invisible-db --local",
+    "db:remote": "wrangler d1 migrations apply amigo-invisible-db --remote",
+    "deploy": "wrangler deploy",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <meta name="description" content="Crea una sala de amigo invisible, invita a tus amigos y descubre a quién te toca regalar. Sorteos secretos, fáciles y sin repetir nombres." />
+    <title>Regalín — Tu amigo invisible, sin líos</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <div class="page-glow glow-a" aria-hidden="true"></div>
+    <div class="page-glow glow-b" aria-hidden="true"></div>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/" id="brand-home" aria-label="Regalín, ir a inicio">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 13h21v14.5h-21V13Z" fill="#6F63FF"/><path d="M3.5 10.5h25v5h-25v-5Z" fill="#4E42D5"/><path d="M14 10.5v17M18 10.5v17" stroke="#FFF5C9" stroke-width="3"/><path d="M15.6 10.5c-5.5-.2-9-2.7-8.1-5.3.8-2.4 3.7-1.5 5.1.2 1.4 1.7 2.3 4 3 5.1ZM16.4 10.5c5.5-.2 9-2.7 8.1-5.3-.8-2.4-3.7-1.5-5.1.2-1.4 1.7-2.3 4-3 5.1Z" stroke="#4E42D5" stroke-width="2.5" stroke-linejoin="round"/></svg>
+          </span>
+          <span>regalín<span class="brand-dot">.</span></span>
+        </a>
+        <div class="header-pill"><span class="header-sparkle">✳</span> Todo el secreto. Cero complicaciones.</div>
+      </header>
+
+      <main class="content-grid">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-overline"><span class="sparkle">✦</span> LA FORMA FÁCIL DE HACER UN AMIGO INVISIBLE</div>
+          <h1 id="hero-title">Los mejores regalos empiezan con <span class="hero-secret">un secreto<span class="secret-underline" aria-hidden="true"></span></span><span class="hero-stop">.</span></h1>
+          <p class="hero-description">Olvídate de los papelitos y los líos. Crea una sala, comparte el código con tu grupo y deja que la magia haga el resto.</p>
+          <div class="benefit-list">
+            <div class="benefit"><span class="benefit-icon mint">✓</span><span>Sin registros ni descargar apps</span></div>
+            <div class="benefit"><span class="benefit-icon lavender">✧</span><span>Sorteo 100 % secreto</span></div>
+            <div class="benefit"><span class="benefit-icon peach">↗</span><span>Funciona en cualquier móvil</span></div>
+          </div>
+          <div class="how-it-works" aria-label="Cómo funciona">
+            <div class="how-title">ASÍ DE FÁCIL</div>
+            <div class="steps">
+              <div class="step"><span class="step-num">01</span><span>Crea tu sala</span></div>
+              <span class="step-arrow" aria-hidden="true">→</span>
+              <div class="step"><span class="step-num">02</span><span>Invita al grupo</span></div>
+              <span class="step-arrow" aria-hidden="true">→</span>
+              <div class="step"><span class="step-num">03</span><span>¡Descubre!</span></div>
+            </div>
+          </div>
+          <div class="hero-ornament" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="ornament-gift"><svg viewBox="0 0 120 120" fill="none"><rect x="22" y="50" width="76" height="60" rx="10" fill="#6459F5"/><rect x="15" y="40" width="90" height="24" rx="7" fill="#4B3ED6"/><path d="M51 40V110M69 40V110" stroke="#F7EAAE" stroke-width="11"/><path d="M60 39c-23-2-37-10-32-22 5-13 22-9 32 22Zm0 0c23-2 37-10 32-22-5-13-22-9-32 22Z" fill="#F7EAAE" stroke="#4B3ED6" stroke-width="5" stroke-linejoin="round"/></svg></div>
+            <span class="ornament-star star-one">✦</span><span class="ornament-star star-two">✧</span><span class="ornament-star star-three">✳</span>
+          </div>
+        </section>
+
+        <section class="main-panel" id="interactive-panel" aria-live="polite">
+          <div class="entry-card" id="home-view">
+            <div class="card-topline"><span class="card-step">EMPEZAMOS AQUÍ</span><span class="decor-star" aria-hidden="true">✳</span></div>
+            <h2>Organiza la sorpresa <span class="wave-hand">🎉</span></h2>
+            <p class="card-subtitle">Dos minutos y lo tienes todo preparado.</p>
+            <div class="tab-switch" role="tablist" aria-label="Qué quieres hacer">
+              <button class="tab active" id="tab-create" type="button" role="tab" aria-selected="true" aria-controls="create-form"><span aria-hidden="true">＋</span> Crear sala</button>
+              <button class="tab" id="tab-join" type="button" role="tab" aria-selected="false" aria-controls="join-form"><span aria-hidden="true">↗</span> Unirme</button>
+            </div>
+
+            <form id="create-form" class="form-stack" autocomplete="off">
+              <div class="field"><label for="room-title">Nombre del grupo <span class="required">*</span></label><input id="room-title" name="title" maxlength="70" minlength="3" required placeholder="Ej. Navidad con los primos 🎄" /><span class="field-hint">Ponle un nombre divertido a vuestra sala.</span></div>
+              <div class="field"><label for="host-name">Tu nombre <span class="required">*</span></label><input id="host-name" name="name" maxlength="32" minlength="2" required placeholder="Ej. Jorge" /></div>
+              <div class="form-pair">
+                <div class="field"><label for="budget">Presupuesto <span class="optional">(opcional)</span></label><div class="input-with-suffix"><input id="budget" name="budget" inputmode="decimal" placeholder="20" /><span>€</span></div></div>
+                <div class="field"><label for="gift-date">Día de entrega <span class="optional">(opcional)</span></label><input id="gift-date" name="giftDate" type="date" /></div>
+              </div>
+              <button class="primary-button" type="submit" id="create-button"><span>Crear mi sala</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <div class="form-footer"><span aria-hidden="true">🔒</span> Solo tú podrás iniciar el sorteo.</div>
+            </form>
+
+            <form id="join-form" class="form-stack hidden" autocomplete="off">
+              <div class="join-intro">¿Te han pasado un código? ¡Estás a un paso del sorteo!</div>
+              <div class="field"><label for="join-code">Código de la sala <span class="required">*</span></label><input id="join-code" name="code" class="code-input" maxlength="6" minlength="6" required placeholder="ABC123" autocapitalize="characters" autocomplete="off" spellcheck="false" /></div>
+              <div class="field"><label for="join-name">Tu nombre <span class="required">*</span></label><input id="join-name" name="name" maxlength="32" minlength="2" required placeholder="¿Cómo te llamas?" /></div>
+              <button class="primary-button" type="submit" id="join-button"><span>Entrar en la sala</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <div class="form-footer"><span aria-hidden="true">✨</span> Nadie podrá ver a quién te toca regalar.</div>
+            </form>
+          </div>
+
+          <div class="room-card hidden" id="room-view">
+            <div class="room-header-row"><button class="back-link" type="button" id="back-home" aria-label="Volver a inicio">← Inicio</button><span class="room-status waiting" id="room-status"><span class="status-dot"></span> Esperando al grupo</span></div>
+            <div class="room-heading"><div class="tiny-overline" id="room-step-label">TU SALA ESTÁ LISTA</div><h2 id="room-heading-title">Amigo invisible</h2><p id="room-detail-text" class="card-subtitle">Comparte el código con los demás.</p></div>
+            <div class="invite-box">
+              <div class="invite-title">CÓDIGO DE INVITACIÓN</div>
+              <div class="invite-row"><div id="room-code" class="invite-code">------</div><button class="copy-button" type="button" id="copy-code" title="Copiar código" aria-label="Copiar código"><span>⧉</span> Copiar</button></div>
+              <div class="invite-foot"><span>Compártelo con los demás</span><button type="button" class="text-action" id="share-link">↗ Compartir enlace</button></div>
+            </div>
+            <div class="lobby-section"><div class="section-title-row"><h3>Participantes <span class="member-counter" id="member-count">0 / 30</span></h3><span class="live-badge"><span class="live-dot"></span> En directo</span></div><div class="member-grid" id="member-list"></div></div>
+            <div id="host-actions" class="host-actions hidden"><button id="draw-button" class="primary-button" type="button"><span>Hacer el sorteo</span><span class="button-arrow">✧</span></button><p class="host-note" id="host-note">Cuando estéis todos, pulsa aquí. El resultado es definitivo.</p></div>
+            <div id="guest-message" class="guest-message hidden"><div class="guest-icon">⏳</div><div><strong>¡Ya estás dentro!</strong><p>Cuando la persona organizadora haga el sorteo, podrás descubrir a quién te ha tocado.</p></div></div>
+            <div id="result-section" class="result-section hidden">
+              <div class="result-divider"></div>
+              <div class="result-overline">LA SORPRESA YA ESTÁ PREPARADA</div>
+              <div class="envelope" id="envelope-icon" aria-hidden="true"><span class="envelope-heart">♥</span><span class="envelope-flap"></span></div>
+              <h3 id="result-title">¡Ya tienes tu persona secreta!</h3>
+              <p id="result-help">Solo tú podrás ver el nombre que te ha tocado.</p>
+              <button type="button" class="primary-button" id="reveal-button"><span>Abrir mi sobre secreto</span><span class="button-arrow">✦</span></button>
+              <div id="revealed-name" class="revealed-card hidden"><div class="revealed-overline">TE HA TOCADO REGALAR A...</div><div id="recipient-name" class="recipient-name"></div><div class="revealed-footer">🤫 Shhh... ¡Que no se entere!</div></div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer"><span>Hecho para regalar sonrisas <span aria-hidden="true">♥</span></span><span>Un sorteo justo. Un secreto para cada persona.</span></footer>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
