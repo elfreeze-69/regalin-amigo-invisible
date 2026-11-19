@@ -7,7 +7,8 @@ const ROOM_CODE_LENGTH = 6;
 const MAX_MEMBERS = 30;
 
 // La primera visita inicializa las tablas automáticamente, también al desplegar desde un móvil.
-const INITIAL_SCHEMA = String.raw`CREATE TABLE IF NOT EXISTS rooms (
+const INITIAL_SCHEMA = [
+  String.raw`CREATE TABLE IF NOT EXISTS rooms (
   code TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   budget REAL,
@@ -15,9 +16,9 @@ const INITIAL_SCHEMA = String.raw`CREATE TABLE IF NOT EXISTS rooms (
   status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'drawn')),
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   drawn_at TEXT
-);
+);`,
 
-CREATE TABLE IF NOT EXISTS members (
+  String.raw`CREATE TABLE IF NOT EXISTS members (
   id TEXT PRIMARY KEY,
   room_code TEXT NOT NULL REFERENCES rooms(code) ON DELETE CASCADE,
   name TEXT NOT NULL,
@@ -26,29 +27,30 @@ CREATE TABLE IF NOT EXISTS members (
   is_host INTEGER NOT NULL DEFAULT 0 CHECK (is_host IN (0, 1)),
   joined_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(room_code, name_key)
-);
+);`,
 
-CREATE INDEX IF NOT EXISTS idx_members_room ON members(room_code, joined_at, id);
+  String.raw`CREATE INDEX IF NOT EXISTS idx_members_room ON members(room_code, joined_at, id);`,
 
-CREATE TABLE IF NOT EXISTS assignments (
+  String.raw`CREATE TABLE IF NOT EXISTS assignments (
   room_code TEXT NOT NULL REFERENCES rooms(code) ON DELETE CASCADE,
   giver_id TEXT NOT NULL REFERENCES members(id) ON DELETE CASCADE,
   receiver_id TEXT NOT NULL REFERENCES members(id) ON DELETE CASCADE,
   PRIMARY KEY(room_code, giver_id),
   CHECK (giver_id <> receiver_id)
-);
+);`,
 
-CREATE TRIGGER IF NOT EXISTS block_late_members
+  String.raw`CREATE TRIGGER IF NOT EXISTS block_late_members
 BEFORE INSERT ON members
 WHEN (SELECT status FROM rooms WHERE code = NEW.room_code) <> 'open'
 BEGIN
   SELECT RAISE(ABORT, 'ROOM_CLOSED');
-END;`;
+END;`,
+];
 const readyDatabases = new WeakSet();
 async function ensureSchema(db) {
   if (readyDatabases.has(db)) return;
   const exists = await db.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'rooms'").bind().first();
-  if (!exists) await db.exec(INITIAL_SCHEMA);
+  if (!exists) await db.batch(INITIAL_SCHEMA.map(sql => db.prepare(sql).bind()));
   readyDatabases.add(db);
 }
 
